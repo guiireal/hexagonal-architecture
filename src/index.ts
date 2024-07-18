@@ -1,3 +1,3 @@
-export function sum(a: number, b: number): number {
-  return a + b;
-}
+import mainMenu from "./app/menu/mainMenu";
+
+mainMenu();
