@@ -1,16 +1,18 @@
-import { terminal } from "terminal-kit";
-import TerminalUtil from "../utils/TerminalUtil";
+import TerminalUtil from "@/app/utils/TerminalUtil";
+import fundamentalsMenu from "./fundamentalsMenu";
 
 export default async function mainMenu() {
   TerminalUtil.title("Menu principal");
 
-  const response = await terminal.singleColumnMenu(["1. Fundamentos", "Sair"])
-    .promise;
+  const [index] = await TerminalUtil.menu(["1. Fundamentos", "Sair"]);
 
-  switch (response.selectedIndex) {
+  switch (index) {
+    case 0:
+      await fundamentalsMenu();
+      break;
     case 1:
       process.exit(0);
   }
 
-  mainMenu();
+  await mainMenu();
 }
