@@ -1,3 +1,4 @@
+import ReversePasswordCrypto from "@/adapters/auth/ReversePasswordCrypto";
 import TerminalUtil from "@/app/utils/TerminalUtil";
 import User from "@/core/user/models/User";
 import CreateUser from "@/core/user/usecases/CreateUser";
@@ -15,8 +16,11 @@ export default async function createUser() {
     password,
   };
 
+  const reversePasswordCrypto = new ReversePasswordCrypto();
+  const useCase = new CreateUser(reversePasswordCrypto);
+
   try {
-    await new CreateUser().handle(user);
+    await useCase.handle(user);
     TerminalUtil.success("Usuário criado com sucesso!");
   } catch (error: any) {
     TerminalUtil.error(error.message);
