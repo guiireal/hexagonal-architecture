@@ -1,16 +1,13 @@
-import { terminal } from "terminal-kit";
-import Fusca from "./Fusca";
+import Car from "./Car";
 
-export default function race() {
-  const car = new Fusca();
-
+export default function race(car: Car, logger: (str: string) => void) {
   Array.from({ length: 10 }).forEach(() => {
     car.accelerate();
-    terminal.red(`\nVelocidade: ${car.currentSpeed}`);
+    logger(`\nVelocidade: ${car.currentSpeed}`);
   });
 
   Array.from({ length: 10 }).forEach(() => {
     car.brake();
-    terminal.red(`\nVelocidade: ${car.currentSpeed}`);
+    logger(`\nVelocidade: ${car.currentSpeed}`);
   });
 }
