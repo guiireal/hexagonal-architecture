@@ -1,6 +1,7 @@
 import User from "@/core/user/models/User";
+import UserRepository from "@/core/user/repositories/UserRepository";
 
-export default class UserInMemoryRepository {
+export default class UserInMemoryRepository implements UserRepository {
   private static readonly items: User[] = [];
 
   async create(user: User): Promise<void> {
