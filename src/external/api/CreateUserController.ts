@@ -1,5 +1,6 @@
 import CreateUser from "@/core/user/usecases/CreateUser";
 import { Express, Request, Response } from "express";
+
 export default class CreateUserController {
   constructor(
     private readonly server: Express,

@@ -6,6 +6,9 @@ import BCryptCryptoProvider from "@/external/auth/BCryptCryptoProvider";
 import JWTTokenProvider from "@/external/auth/JWTTokenProvider";
 import UserPostgresRepository from "@/external/database/UserPostgresRepository";
 
+import FindProductById from "@/core/product/usecases/FindProductById";
+import FindProductByIdController from "@/external/api/FindProductByIdController";
+import userMiddleware from "@/external/api/userMiddleware";
 import dotenv from "dotenv";
 import express from "express";
 
@@ -21,10 +24,14 @@ const userRepository = new UserPostgresRepository();
 const cryptoProvider = new BCryptCryptoProvider();
 const createUser = new CreateUser(userRepository, cryptoProvider);
 const loginUser = new LoginUser(userRepository, cryptoProvider);
+const findProductByID = new FindProductById();
 const tokenProvider = new JWTTokenProvider(process.env.JWT_SECRET!);
+
+const userMiddlewareHandler = userMiddleware(userRepository, tokenProvider);
 
 new CreateUserController(app, createUser);
 new LoginUserController(app, loginUser, tokenProvider);
+new FindProductByIdController(app, findProductByID, userMiddlewareHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
