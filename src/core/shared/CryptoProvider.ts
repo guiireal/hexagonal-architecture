@@ -1,3 +1,4 @@
 export default interface CryptoProvider {
-  handle(text: string): string;
+  generate(text: string): string;
+  compare(text: string, hash: string): boolean;
 }
