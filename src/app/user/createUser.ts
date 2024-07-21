@@ -1,5 +1,5 @@
 import BCryptPasswordCrypto from "@/adapters/auth/BCryptPasswordCrypto";
-import UserInMemoryRepository from "@/adapters/database/UserInMemoryRepository";
+import UserPostgresRepository from "@/adapters/database/UserPostgresRepository";
 import TerminalUtil from "@/app/utils/TerminalUtil";
 import User from "@/core/user/models/User";
 import CreateUser from "@/core/user/usecases/CreateUser";
@@ -18,7 +18,7 @@ export default async function createUser() {
   };
 
   const passwordCrypto = new BCryptPasswordCrypto();
-  const userRepository = new UserInMemoryRepository();
+  const userRepository = new UserPostgresRepository();
 
   const useCase = new CreateUser(userRepository, passwordCrypto);
 
