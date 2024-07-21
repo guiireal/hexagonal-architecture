@@ -9,41 +9,25 @@ export type InputLoginUserDTO = {
   password: string;
 };
 
-export type OutputLoginUserDTO = {
-  user: User;
-  token: string;
-};
-
-export default class LoginUser
-  implements UseCase<InputLoginUserDTO, OutputLoginUserDTO>
-{
+export default class LoginUser implements UseCase<InputLoginUserDTO, User> {
   constructor(
     private readonly repository: UserRepository,
     private readonly cryptoProvider: CryptoProvider
   ) {}
 
-  async handle({
-    email,
-    password,
-  }: InputLoginUserDTO): Promise<OutputLoginUserDTO> {
+  async handle({ email, password }: InputLoginUserDTO): Promise<User> {
     const user = await this.repository.findByEmail(email);
 
     if (!user) {
       throw new NotFoundException("User not found");
     }
 
-    const samePassword = this.cryptoProvider.compare(
-      password,
-      user.password as string
-    );
+    const samePassword = this.cryptoProvider.compare(password, user.password!);
 
     if (!samePassword) {
       throw new Error("Invalid password");
     }
 
-    return {
-      user: { ...user, password: undefined },
-      token: "1",
-    };
+    return { ...user, password: undefined };
   }
 }

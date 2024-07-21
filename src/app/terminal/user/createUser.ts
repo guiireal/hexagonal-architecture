@@ -1,7 +1,7 @@
 import TerminalUtil from "@/app/terminal/utils/TerminalUtil";
 import User from "@/core/user/models/User";
 import CreateUser from "@/core/user/usecases/CreateUser";
-import BCryptPasswordCrypto from "@/external/auth/BCryptPasswordCrypto";
+import BCryptPasswordCrypto from "@/external/auth/BCryptCryptoProvider";
 import UserPostgresRepository from "@/external/database/UserPostgresRepository";
 
 export default async function createUser() {

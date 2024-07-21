@@ -12,9 +12,7 @@ export default class CreateUser implements UseCase<User, void> {
   ) {}
 
   async handle(user: User): Promise<void> {
-    const passwordCrypto = this.cryptoProvider.generate(
-      user.password as string
-    );
+    const passwordCrypto = this.cryptoProvider.generate(user.password!);
 
     const hasUser = !!(await this.userRepository.findByEmail(user.email));
 
