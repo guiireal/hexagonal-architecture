@@ -1,4 +1,4 @@
-import ReversePasswordCrypto from "@/adapters/auth/ReversePasswordCrypto";
+import BCryptPasswordCrypto from "@/adapters/auth/BCryptPasswordCrypto";
 import TerminalUtil from "@/app/utils/TerminalUtil";
 import User from "@/core/user/models/User";
 import CreateUser from "@/core/user/usecases/CreateUser";
@@ -16,8 +16,8 @@ export default async function createUser() {
     password,
   };
 
-  const reversePasswordCrypto = new ReversePasswordCrypto();
-  const useCase = new CreateUser(reversePasswordCrypto);
+  const passwordCrypto = new BCryptPasswordCrypto();
+  const useCase = new CreateUser(passwordCrypto);
 
   try {
     await useCase.handle(user);
