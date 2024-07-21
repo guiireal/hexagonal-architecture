@@ -1,3 +1,4 @@
 export default interface TokenProvider {
-  generate(data: string | object): string;
+  generate(payload: string | object): string;
+  get(token: string): string | object;
 }
