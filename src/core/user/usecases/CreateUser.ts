@@ -3,17 +3,18 @@ import AlreadyExistException from "@/core/shared/exceptions/AlreadyExistExceptio
 import ID from "@/core/shared/ID";
 import UseCase from "@/core/shared/UseCase";
 import User from "@/core/user/models/User";
-import UserInMemoryRepository from "@/core/user/repositories/UserInMemoryRepository";
+import UserRepository from "@/core/user/repositories/UserRepository";
 
 export default class CreateUser implements UseCase<User, void> {
-  constructor(private readonly cryptoProvider: CryptoProvider) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly cryptoProvider: CryptoProvider
+  ) {}
 
   async handle(user: User): Promise<void> {
     const passwordCrypto = this.cryptoProvider.handle(user.password);
 
-    const repository = new UserInMemoryRepository();
-
-    const hasUser = !!(await repository.findByEmail(user.email));
+    const hasUser = !!(await this.userRepository.findByEmail(user.email));
 
     if (hasUser) {
       throw new AlreadyExistException("User already exists");
@@ -25,6 +26,6 @@ export default class CreateUser implements UseCase<User, void> {
       password: passwordCrypto,
     };
 
-    await repository.create(newUser);
+    await this.userRepository.create(newUser);
   }
 }

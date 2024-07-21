@@ -1,7 +1,7 @@
-export default class ID {
-  private static id = 0;
+import { v4 as uuid } from "uuid";
 
-  static generate(): number {
-    return ++ID.id;
+export default class ID {
+  static generate(): string {
+    return uuid();
   }
 }
