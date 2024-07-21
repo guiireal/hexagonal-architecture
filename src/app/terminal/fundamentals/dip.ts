@@ -1,4 +1,4 @@
-import TerminalUtil from "@/app/utils/TerminalUtil";
+import TerminalUtil from "@/app/terminal/utils/TerminalUtil";
 import Car from "@/core/fundamentals/Car";
 import Civic from "@/core/fundamentals/Civic";
 import Ferrari from "@/core/fundamentals/Ferrari";

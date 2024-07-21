@@ -1,15 +1,17 @@
 import BCryptPasswordCrypto from "@/adapters/auth/BCryptPasswordCrypto";
 import UserPostgresRepository from "@/adapters/database/UserPostgresRepository";
-import TerminalUtil from "@/app/utils/TerminalUtil";
+import TerminalUtil from "@/app/terminal/utils/TerminalUtil";
 import User from "@/core/user/models/User";
 import CreateUser from "@/core/user/usecases/CreateUser";
 
 export default async function createUser() {
-  TerminalUtil.title("Criar usuário");
+  const { title, requiredInput, success, error, waitEnter } = TerminalUtil;
 
-  const name = await TerminalUtil.requiredInput("Nome", "Gui");
-  const email = await TerminalUtil.requiredInput("E-mail", "gui@teste.com");
-  const password = await TerminalUtil.requiredInput("Senha", "1234");
+  title("Criar usuário");
+
+  const name = await requiredInput("Nome");
+  const email = await requiredInput("E-mail");
+  const password = await requiredInput("Senha");
 
   const user: User = {
     name,
@@ -24,10 +26,10 @@ export default async function createUser() {
 
   try {
     await useCase.handle(user);
-    TerminalUtil.success("Usuário criado com sucesso!");
-  } catch (error: any) {
-    TerminalUtil.error(error.message);
+    success("Usuário criado com sucesso!");
+  } catch (exception: any) {
+    error(exception.message);
   } finally {
-    await TerminalUtil.waitEnter();
+    await waitEnter();
   }
 }

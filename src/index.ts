@@ -1,3 +1,3 @@
-import mainMenu from "@/app/menu/mainMenu";
+import mainMenu from "@/app/terminal/menu/mainMenu";
 
 mainMenu();

@@ -1,5 +1,5 @@
-import polymorphism from "@/app/fundamentals/polymorphism";
-import TerminalUtil from "@/app/utils/TerminalUtil";
+import polymorphism from "@/app/terminal/fundamentals/polymorphism";
+import TerminalUtil from "@/app/terminal/utils/TerminalUtil";
 import dip from "../fundamentals/dip";
 
 export default async function fundamentalsMenu() {
