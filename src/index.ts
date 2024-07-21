@@ -1,12 +1,13 @@
+import CreateUser from "@/core/user/usecases/CreateUser";
+import LoginUser from "@/core/user/usecases/LoginUser";
+import CreateUserController from "@/external/api/CreateUserController";
+import LoginUserController from "@/external/api/LoginUserController";
+import BCryptCryptoProvider from "@/external/auth/BCryptCryptoProvider";
+import JWTTokenProvider from "@/external/auth/JWTTokenProvider";
+import UserPostgresRepository from "@/external/database/UserPostgresRepository";
+
 import dotenv from "dotenv";
 import express from "express";
-import CreateUser from "./core/user/usecases/CreateUser";
-import LoginUser from "./core/user/usecases/LoginUser";
-import CreateUserController from "./external/api/CreateUserController";
-import LoginUserController from "./external/api/LoginUserController";
-import BCryptCryptoProvider from "./external/auth/BCryptCryptoProvider";
-import JWTTokenProvider from "./external/auth/JWTTokenProvider";
-import UserPostgresRepository from "./external/database/UserPostgresRepository";
 
 dotenv.config();
 
